@@ -112,6 +112,14 @@ button {
   cursor: pointer;
 }
 
+.deleteBreakpoint {
+  background-color: #121212;
+  color: rgb(142, 142, 142);
+  padding: 5px;
+  margin-left: 3px;
+  cursor: pointer;
+}
+
 ul, ol {
   list-style: none;
 }

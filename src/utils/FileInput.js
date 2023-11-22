@@ -5,7 +5,6 @@ const FileInput = ({ onFileChange }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-        console.log(file);
       onFileChange(file);
     }
   };
