@@ -7,21 +7,25 @@ import FileInput from './utils/FileInput';
 
 const AudioPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0);
-  // const [breakpoints, setBreakpoints] = useState([]);
   const [breakpoints, setBreakpoints] = useState(JSON.parse(localStorage.getItem('breakpoints')) || []);
-  // const [currentTrack, setCurrentTrack] = useState(null);
   const [currentTrack, setCurrentTrack] = useState(localStorage.getItem('selectedTrack') || null);
-  // const [currentBlob, setCurrentBlob] = useState(null);
   const [currentBlob, setCurrentBlob] = useState(localStorage.getItem('selectedBlob') || null);
   const audioRef = useRef(null);
-  console.log("selectedTrack:", localStorage.getItem('selectedTrack'));
-  console.log("selectedBlob:", localStorage.getItem('selectedBlob'));
 
   // function to skip to a certain timestamp (when breakpoint selected)
   const skipToTimestamp = (timestamp) => {
     if (audioRef.current) {
       audioRef.current.audioEl.current.currentTime = timestamp;
       setCurrentTime(audioRef.current.audioEl.current.currentTime);
+    }
+  };
+
+  // function to go back a certain number of seconds
+  const goBack = (seconds) => {
+    if (audioRef.current) {
+      const newTime = Math.max(0, audioRef.current.audioEl.current.currentTime - seconds);
+      audioRef.current.audioEl.current.currentTime = newTime;
+      setCurrentTime(newTime);
     }
   };
 
@@ -39,6 +43,9 @@ const AudioPlayer = () => {
   // listen for changes in currentTime and update the localStorage
   useEffect(() => {
     localStorage.setItem('currentTime', currentTime);
+    console.log("current Track is: ", currentTrack);
+    console.log("current local storage is: ", localStorage.getItem('selectedTrack'));
+    console.log("current Blob is: ", currentBlob);
   }, [currentTime]);
 
   // internally in ReactAudioPlayer; updates the time
@@ -48,19 +55,19 @@ const AudioPlayer = () => {
 
   // when a new file is selected, set the currentTrack and the dataBlob that ReactAudioPlayer will accept
   const handleFileChange = (file) => {
-    console.log(file);
-    setCurrentTrack(file); // SUPER WEIRD NOT UPDATING!!
+    console.log(file.name);
+    setCurrentTrack(file.name);
     console.log(currentTrack);
     var binaryData = [];
-    binaryData.push(file);
+    binaryData.push(file);  
     const mp3ObjectURL = window.URL.createObjectURL(new Blob(binaryData, {type: "audio/mpeg"}))
     setCurrentBlob(mp3ObjectURL);
     console.log("currentTrack:", currentTrack);
 
-    localStorage.setItem('selectedTrack', currentTrack);
-    localStorage.setItem('selectedBlob', currentBlob);
+    localStorage.setItem('selectedTrack', file.name);
+    localStorage.setItem('selectedBlob', mp3ObjectURL);
 
-    console.log("in handleFileChange, selectedTrack:", localStorage.getItem('selectedTrack'));
+    // console.log("in handleFileChange, selectedTrack:", localStorage.getItem('selectedTrack').name);
   };
 
 
@@ -77,7 +84,7 @@ const AudioPlayer = () => {
       {/* User selects an audio file and the name displays */}
       <FileInput onFileChange={handleFileChange} />
       {currentTrack ? (
-        <p>Selected File: {currentTrack.name}</p>
+        <p>Selected File: {currentTrack}</p>
       ) :
       <p>Selected File: Default (Never Gonna Give You Up)</p>
       }
@@ -92,7 +99,7 @@ const AudioPlayer = () => {
             // setBreakpoints([...breakpoints, currentTime]);
             localStorage.setItem('breakpoints', JSON.stringify(newBreakpoints));
             }}>
-            Add Breakpoint
+            add breakpoint
           </button>
 
           <p>Current Time: {secondsToTimestamp(currentTime)}</p>
@@ -107,8 +114,9 @@ const AudioPlayer = () => {
           />
 
           <br></br>
-          
-          <button onClick={() => skipToTimestamp(30)}>Skip to 30 seconds</button>
+          <button onClick={() => skipToTimestamp(30)}>skip to 30 seconds</button>
+          <br></br>
+          <button onClick={() => goBack(10)}>back it up 10 seconds</button>
         </div>
 
 
