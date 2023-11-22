@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import audioFile from './assets/DiwaliAudio.m4a';
+import defaultFile from './assets/NeverGonnaGiveYouUp.mp3'
 import './index.css';
 import secondsToTimestamp from './utils/conversions';
 import FileInput from './utils/FileInput';
@@ -15,7 +16,7 @@ const AudioPlayer = () => {
   // function to skip to a certain timestamp (when breakpoint selected)
   const skipToTimestamp = (timestamp) => {
     if (audioRef.current) {
-      audioRef.current.currentTime = timestamp;
+      audioRef.current.audioEl.current.currentTime = timestamp;
       setCurrentTime(audioRef.current.currentTime);
     }
   };
@@ -53,7 +54,7 @@ const AudioPlayer = () => {
       {currentTrack ? (
         <p>Selected File: {currentTrack.name}</p>
       ) :
-      <p>Selected File: Default (Diwali Mix)</p>
+      <p>Selected File: Default (Never Gonna Give You Up)</p>
       }
       
       <div className="twoSides">
@@ -64,12 +65,12 @@ const AudioPlayer = () => {
             Add Breakpoint
           </button>
 
-          <p>Current Time: {secondsToTimestamp(currentTime.toFixed(2))}</p>
+          <p>Current Time: {secondsToTimestamp(currentTime)}</p>
           
           <ReactAudioPlayer
             ref={audioRef}
             id="audio-element"
-            src={currentTrack ? currentBlob : audioFile}
+            src={currentTrack ? currentBlob : defaultFile}
             controls
             onTimeUpdate={handleTimeUpdate}
             className="audioPlayerBar"
