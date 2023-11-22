@@ -72,6 +72,8 @@ code {
 
 .breakpoint {
   margin: 5px;
+  width: 16vw;
+  display: flex;
 }
 
 .audioSide {
@@ -92,7 +94,7 @@ code {
 }
 
 .breakpointSide {
-  margin: 30px;
+  /* margin: 20px; */
   display: flex;
   flex-direction: column;
   background-color: '#121212';
@@ -112,12 +114,17 @@ button {
   cursor: pointer;
 }
 
+.breakpointButton {
+  flex: 3
+}
+
 .deleteBreakpoint {
   background-color: #121212;
   color: rgb(142, 142, 142);
   padding: 5px;
-  margin-left: 3px;
+  /* margin-left: 0px; */
   cursor: pointer;
+  flex: 0.5
 }
 
 ul, ol {

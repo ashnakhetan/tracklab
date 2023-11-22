@@ -43,9 +43,6 @@ const AudioPlayer = () => {
   // listen for changes in currentTime and update the localStorage
   useEffect(() => {
     localStorage.setItem('currentTime', currentTime);
-    console.log("current Track is: ", currentTrack);
-    console.log("current local storage is: ", localStorage.getItem('selectedTrack'));
-    console.log("current Blob is: ", currentBlob);
   }, [currentTime]);
 
   // internally in ReactAudioPlayer; updates the time
@@ -55,19 +52,14 @@ const AudioPlayer = () => {
 
   // when a new file is selected, set the currentTrack and the dataBlob that ReactAudioPlayer will accept
   const handleFileChange = (file) => {
-    console.log(file.name);
     setCurrentTrack(file.name);
-    console.log(currentTrack);
     var binaryData = [];
     binaryData.push(file);  
     const mp3ObjectURL = window.URL.createObjectURL(new Blob(binaryData, {type: "audio/mpeg"}))
     setCurrentBlob(mp3ObjectURL);
-    console.log("currentTrack:", currentTrack);
 
     localStorage.setItem('selectedTrack', file.name);
     localStorage.setItem('selectedBlob', mp3ObjectURL);
-
-    // console.log("in handleFileChange, selectedTrack:", localStorage.getItem('selectedTrack').name);
   };
 
 
@@ -125,8 +117,8 @@ const AudioPlayer = () => {
           <ul className='breakpointList'>
             {breakpoints.map((timestamp, index) => (
               <li className='breakpoint' key={index}>
-                <button onClick={() => skipToTimestamp(timestamp)}>
-                  Breakpoint {index + 1}: {timestamp.toFixed(2)} seconds
+                <button className="breakpointButton" onClick={() => skipToTimestamp(timestamp)}>
+                  Breakpoint {index + 1}: {secondsToTimestamp(timestamp)}
                 </button>
                 <button className="deleteBreakpoint" onClick={() => deleteBreakpoint(index)}>
                   &#10006;

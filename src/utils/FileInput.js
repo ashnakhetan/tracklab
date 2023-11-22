@@ -12,7 +12,7 @@ const FileInput = ({ onFileChange }) => {
   return (
     <div className="fileInputContainer">
       <label className="fileInputLabel">
-        <input className="fileInput" type="file" accept="audio/*" onChange={handleFileChange} />
+        <input className="fileInput" type="file" accept="*/*" onChange={handleFileChange} />
         select yo file
       </label>
     </div>
