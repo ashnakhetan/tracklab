@@ -1,6 +1,6 @@
 {
   "name": "raas-playback",
-  "homepage": "https://ashnakhetan.github.io/track-lab/",
+  "homepage": "https://ashnakhetan.github.io/tracklab/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
