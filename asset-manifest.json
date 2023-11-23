@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/tracklab/static/css/main.54bb0bec.css",
+    "main.js": "/tracklab/static/js/main.ef764c9e.js",
+    "static/js/787.e9689511.chunk.js": "/tracklab/static/js/787.e9689511.chunk.js",
+    "static/media/NeverGonnaGiveYouUp.mp3": "/tracklab/static/media/NeverGonnaGiveYouUp.5443f8893a7e88e5562a.mp3",
+    "index.html": "/tracklab/index.html",
+    "main.54bb0bec.css.map": "/tracklab/static/css/main.54bb0bec.css.map",
+    "main.ef764c9e.js.map": "/tracklab/static/js/main.ef764c9e.js.map",
+    "787.e9689511.chunk.js.map": "/tracklab/static/js/787.e9689511.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.54bb0bec.css",
+    "static/js/main.ef764c9e.js"
+  ]
+}
